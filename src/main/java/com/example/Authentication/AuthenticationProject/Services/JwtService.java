@@ -18,9 +18,9 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+public class JwtService implements IJwtService{
 
-    @Value("${application.security.jwt.secretKey}")
+    @Value("${security.jwt.secretKey}")
     private String secretKey;
 
 
@@ -48,10 +48,10 @@ public class JwtService {
 
     public String generateToken(Map<String,Object> extraClaims, UserDetails userDetails){
         Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
-        if (roles.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+        if (roles.contains(new SimpleGrantedAuthority("Admin"))) {
             extraClaims.put("isAdmin", true);
         }
-        if (roles.contains(new SimpleGrantedAuthority("ROLE_USER"))) {
+        if (roles.contains(new SimpleGrantedAuthority("User"))) {
             extraClaims.put("isUser", true);
         }
 
