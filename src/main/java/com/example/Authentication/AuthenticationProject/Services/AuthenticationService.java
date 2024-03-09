@@ -36,6 +36,7 @@ public class AuthenticationService {
                 .role(request.getRole())
                 .build();
         System.out.println(user);
+        //!!! issue here
         userRepository.save(user);
         var jwtToken =jwtService.generateToken(user);
         return AuthenticationResponse.builder()
